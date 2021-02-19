@@ -1,0 +1,27 @@
+{
+  "name": "js-media-lab",
+  "version": "1.0.0",
+  "description": "Js Media Lab",
+  "main": "index.js",
+  "scripts": {
+    "compile:sass": "node-sass scss/main.scss css/style.css -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/julioct99/js-media-lab.git"
+  },
+  "keywords": [
+    "js",
+    "media",
+    "lab"
+  ],
+  "author": "Julio Casallo Tamayo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/julioct99/js-media-lab/issues"
+  },
+  "homepage": "https://github.com/julioct99/js-media-lab#readme",
+  "dependencies": {
+    "node-sass": "^5.0.0"
+  }
+}
