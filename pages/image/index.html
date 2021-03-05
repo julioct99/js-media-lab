@@ -86,6 +86,89 @@
       </div>
     </nav>
 
+    <div class="container text-center">
+      <div class="custom-file my-5">
+        <input
+          type="file"
+          class="custom-file-input"
+          id="imgUpload"
+          style="cursor: pointer"
+        />
+        <label class="custom-file-label" for="customFile">
+          <span class="material-icons" style="vertical-align: middle">
+            upload
+          </span>
+          Choose file</label
+        >
+        <form id="urlForm" class="mt-3">
+          <div class="input-group flex-nowrap mb-5 px-lg-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text bg-primary" id="addon-wrapping">
+                <i
+                  class="fa fa-link"
+                  style="color: white"
+                  aria-hidden="true"
+                ></i>
+              </span>
+            </div>
+            <input
+              type="url"
+              id="urlInput"
+              class="form-control text-center"
+              placeholder="... or enter a URL"
+              aria-label="Enter URL"
+              autocomplete="off"
+            />
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-primary">LOAD</button>
+            </div>
+          </div>
+        </form>
+        <br />
+      </div>
+
+      <div class="row">
+        <div class="col-sm">
+          <img
+            class="img-fluid"
+            id="imgPreview"
+            src="https://e-fisiomedic.com/wp-content/uploads/2013/11/default-placeholder.png"
+            style="width: 400px"
+          />
+        </div>
+        <div class="col-sm control-box text-left">
+          <button class="btn btn-light" id="extractColorsBtn" disabled>
+            Extract colors
+          </button>
+          <div class="color-box">
+            <p>Dominant color:</p>
+            <div class="row">
+              <div class="col-sm-12" id="mainColor"></div>
+            </div>
+            <p>Palette:</p>
+            <div class="row">
+              <div class="col-sm-6 color"></div>
+              <div class="col-sm-6 color"></div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6 color"></div>
+              <div class="col-sm-6 color"></div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6 color"></div>
+              <div class="col-sm-6 color"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.min.js"
+      integrity="sha512-mMe7BAZPOkGbq+zhRBMNV3Q+5ZDzcUEOJoUYXbHpEcODkDBYbttaW7P108jX66AQgwgsAjvlP4Ayb/XLJZfmsg=="
+      crossorigin="anonymous"
+    ></script>
+    <script src="index.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
