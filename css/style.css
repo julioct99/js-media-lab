@@ -80,3 +80,8 @@ body {
 
 img {
   width: 150px; }
+
+.nav-item.active {
+  height: 100%;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 130, 0.25); }

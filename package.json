@@ -21,7 +21,8 @@
     "url": "https://github.com/julioct99/js-media-lab/issues"
   },
   "homepage": "https://github.com/julioct99/js-media-lab#readme",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "node-sass": "^5.0.0"
   }
 }
