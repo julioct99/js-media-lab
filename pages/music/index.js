@@ -22,18 +22,17 @@ function playKey(key) {
 }
 
 document.querySelectorAll('.key').forEach((key) => {
-  key.addEventListener('click', (event) => {
-    const keyCode = event.target.id;
-    playKey(keyCode);
-  });
+  key.addEventListener('click', (event) => playKey(event.target.id));
 });
 
 document.addEventListener('keydown', (event) => {
-  const key = event.key.toLowerCase();
-  const keyCode = noteMap[key];
-  const pianoKey = document.querySelector('.' + keyCode);
-  pianoKey.classList.add('active');
-  playKey(keyCode);
+  if (!event.repeat) {
+    const key = event.key.toLowerCase();
+    const keyCode = noteMap[key];
+    const pianoKey = document.querySelector('.' + keyCode);
+    pianoKey.classList.add('active');
+    playKey(keyCode);
+  }
 });
 
 document.addEventListener('keyup', (event) => {
