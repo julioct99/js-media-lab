@@ -16,8 +16,14 @@ img {
   width: 150px;
 }
 
-.nav-item.active {
-  height: 100%;
-  border-radius: 5px;
-  background-color: rgba(0, 0, 130, 0.25);
+.nav-item {
+  &.active {
+    height: 100%;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 130, 0.25);
+  }
+
+  @media (max-width: 992px) {
+    padding: 0 10px;
+  }
 }

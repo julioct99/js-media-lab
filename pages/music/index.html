@@ -86,43 +86,99 @@
       </div>
     </nav>
 
+    <div class="container mt-5 text-center">
+      <button class="btn btn-primary" id="octaveUpBtn">
+        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+      </button>
+      OCTAVE
+      <button class="btn btn-primary" id="octaveDownBtn">
+        <i class="fa fa-arrow-down" aria-hidden="true"></i>
+      </button>
+    </div>
+
     <ul class="keyboard set">
       <li class="key white c">
-        <div class="d-flex justify-content-center align-items-center">[C]</div>
+        <div id="c" class="d-flex justify-content-center align-items-center">
+          [C]
+        </div>
       </li>
       <li class="key black cs">
-        <div class="d-flex justify-content-center align-items-center">[C#]</div>
+        <div id="cs" class="d-flex justify-content-center align-items-center">
+          [C#]
+        </div>
       </li>
       <li class="key white d">
-        <div class="d-flex justify-content-center align-items-center">[D]</div>
+        <div id="d" class="d-flex justify-content-center align-items-center">
+          [D]
+        </div>
       </li>
       <li class="key black ds">
-        <div class="d-flex justify-content-center align-items-center">[D#]</div>
+        <div id="ds" class="d-flex justify-content-center align-items-center">
+          [D#]
+        </div>
       </li>
       <li class="key white e">
-        <div class="d-flex justify-content-center align-items-center">[E]</div>
+        <div id="e" class="d-flex justify-content-center align-items-center">
+          [E]
+        </div>
       </li>
       <li class="key white f">
-        <div class="d-flex justify-content-center align-items-center">[F]</div>
+        <div id="f" class="d-flex justify-content-center align-items-center">
+          [F]
+        </div>
       </li>
       <li class="key black fs">
-        <div class="d-flex justify-content-center align-items-center">[F#]</div>
+        <div id="fs" class="d-flex justify-content-center align-items-center">
+          [F#]
+        </div>
       </li>
       <li class="key white g">
-        <div class="d-flex justify-content-center align-items-center">[G]</div>
+        <div id="g" class="d-flex justify-content-center align-items-center">
+          [G]
+        </div>
       </li>
       <li class="key black gs">
-        <div class="d-flex justify-content-center align-items-center">[G#]</div>
+        <div id="gs" class="d-flex justify-content-center align-items-center">
+          [G#]
+        </div>
       </li>
       <li class="key white a">
-        <div class="d-flex justify-content-center align-items-center">[A]</div>
+        <div id="a" class="d-flex justify-content-center align-items-center">
+          [A]
+        </div>
       </li>
       <li class="key black as">
-        <div class="d-flex justify-content-center align-items-center">[A#]</div>
+        <div id="as" class="d-flex justify-content-center align-items-center">
+          [A#]
+        </div>
       </li>
       <li class="key white b">
-        <div class="d-flex justify-content-center align-items-center">[B]</div>
+        <div id="b" class="d-flex justify-content-center align-items-center">
+          [B]
+        </div>
       </li>
     </ul>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.12/Tone.js"
+      integrity="sha512-MyXAzMk3sw/i85erXXKd2+z2fzlmKD15TzKKwZd541ifNwUQ8Z73CfAwuyIPc0p5bL7xEA3u/l+/V0K9IyPbCg=="
+      crossorigin="anonymous"
+    ></script>
+    <script src="index.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
