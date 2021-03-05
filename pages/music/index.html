@@ -88,12 +88,12 @@
 
     <div class="container mt-5 text-center">
       <div>
-        <button class="btn btn-primary" id="octaveUpBtn">
-          <i class="fa fa-arrow-up" aria-hidden="true"></i>
+        <button class="btn btn-primary" id="octaveDownBtn">
+          [Q] <i class="fa fa-arrow-down" aria-hidden="true"></i>
         </button>
         <span id="octaveSpan">Octave (4)</span>
-        <button class="btn btn-primary" id="octaveDownBtn">
-          <i class="fa fa-arrow-down" aria-hidden="true"></i>
+        <button class="btn btn-primary" id="octaveUpBtn">
+          [W] <i class="fa fa-arrow-up" aria-hidden="true"></i>
         </button>
       </div>
       <div class="mt-3">
@@ -110,6 +110,12 @@
           <option value="membrane">Membrane Synth</option>
           <option value="metal">Metal Synth</option>
         </select>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="isPolyphonic" />
+          <label class="form-check-label" for="isPolyphonic">
+            Polyphonic
+          </label>
+        </div>
       </div>
     </div>
 

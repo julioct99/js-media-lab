@@ -14,17 +14,29 @@ const noteMap = {
 };
 
 const pressedKeys = [];
+
+function addPressedKey(keyCode) {
+  const tone = keyCode.toUpperCase().replace('S', '#') + octave;
+  pressedKeys.push(tone);
+}
+
 function removedPressedKey(keyCode) {
   const index = pressedKeys.indexOf(keyCode);
   pressedKeys.splice(index, 1);
 }
 
+let isPolyphonic = false;
 let octave = 4;
 let synth = new Tone.Synth().toDestination();
 
-function playKey(key) {
-  const tone = key.toUpperCase().replace('S', '#') + octave;
-  synth.triggerAttackRelease(tone, '8n');
+function playKey(keyCode) {
+  console.log(pressedKeys);
+  if (isPolyphonic) {
+    synth.triggerAttackRelease(pressedKeys, '6n');
+  } else {
+    const tone = keyCode.toUpperCase().replace('S', '#') + octave;
+    synth.triggerAttackRelease(tone, '6n');
+  }
 }
 
 document.querySelector('#synthSelect').addEventListener('change', (event) => {
@@ -54,6 +66,21 @@ document.querySelectorAll('.key').forEach((key) => {
   key.addEventListener('click', (event) => playKey(event.target.id));
 });
 
+document.querySelector('#isPolyphonic').addEventListener('change', (event) => {
+  isPolyphonic = event.target.checked;
+  if (isPolyphonic) {
+    synth = new Tone.PolySynth(Tone.Synth).toDestination();
+  }
+});
+
+document
+  .querySelector('#octaveDownBtn')
+  .addEventListener('click', () => changeOctave('down'));
+
+document
+  .querySelector('#octaveUpBtn')
+  .addEventListener('click', () => changeOctave('up'));
+
 document.addEventListener('keydown', (event) => {
   if (!event.repeat) {
     const key = event.key.toLowerCase();
@@ -61,13 +88,13 @@ document.addEventListener('keydown', (event) => {
     if (keyCode) {
       const pianoKey = document.querySelector('.' + keyCode);
       pianoKey.classList.add('active');
-      pressedKeys.push(keyCode);
+      addPressedKey(keyCode);
       playKey(keyCode);
     } else {
       if (key === 'q') {
-        changeOctave('up');
-      } else if (key === 'a') {
         changeOctave('down');
+      } else if (key === 'w') {
+        changeOctave('up');
       }
     }
   }
