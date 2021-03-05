@@ -13,6 +13,7 @@ let mainColor;
 imgInput.addEventListener('change', () => {
   const url = URL.createObjectURL(imgInput.files[0]);
   extractColorsBtn.disabled = false;
+  colorBox.style.display = 'none';
   loadImage(url);
 });
 
@@ -25,6 +26,7 @@ extractColorsBtn.addEventListener('click', () => {
   secondaryColorDivs.forEach((colorDiv, index) => {
     setColor(colorDiv, colors[index]);
   });
+  extractColorsBtn.disabled = true;
 });
 
 urlForm.addEventListener('submit', (event) => {
