@@ -42,20 +42,48 @@
       </button>
       <div id="navLinks" class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a href="#" class="nav-link">HOME</a>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <span class="material-icons" style="vertical-align: middle">
+                collections
+              </span>
+              IMAGE
+            </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">ABOUT</a>
+            <a href="#" class="nav-link">
+              <span class="material-icons" style="vertical-align: middle">
+                video_library
+              </span>
+              VIDEO
+            </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">SHOP</a>
+            <a href="#" class="nav-link">
+              <span class="material-icons" style="vertical-align: middle">
+                library_music
+              </span>
+              AUDIO
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <span class="material-icons" style="vertical-align: middle">
+                library_books
+              </span>
+              ACCESSIBILITY
+            </a>
           </li>
         </ul>
       </div>
     </nav>
 
-    <div class="container mt-5 text-center">
+    <button class="ml-1 mt-1 btn btn-dark">
+      <a style="color: white" href="https://github.com/julioct99/js-media-lab">
+        <i class="fa fa-github" aria-hidden="true"> </i>
+      </a>
+    </button>
+    <div class="container text-center">
       <section class="mb-5">
         <img
           class="img-fluid main-image"
@@ -124,6 +152,21 @@
           </div>
         </div>
       </section>
+
+      <div class="custom-file my-5">
+        <input
+          type="file"
+          class="custom-file-input"
+          id="customFile"
+          style="cursor: pointer"
+        />
+        <label class="custom-file-label" for="customFile">
+          <span class="material-icons" style="vertical-align: middle">
+            upload
+          </span>
+          Choose file</label
+        >
+      </div>
     </div>
 
     <script
