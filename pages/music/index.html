@@ -87,74 +87,91 @@
     </nav>
 
     <div class="container mt-5 text-center">
-      <button class="btn btn-primary" id="octaveUpBtn">
-        <i class="fa fa-arrow-up" aria-hidden="true"></i>
-      </button>
-      OCTAVE
-      <button class="btn btn-primary" id="octaveDownBtn">
-        <i class="fa fa-arrow-down" aria-hidden="true"></i>
-      </button>
+      <div>
+        <button class="btn btn-primary" id="octaveUpBtn">
+          <i class="fa fa-arrow-up" aria-hidden="true"></i>
+        </button>
+        <span id="octaveSpan">Octave (4)</span>
+        <button class="btn btn-primary" id="octaveDownBtn">
+          <i class="fa fa-arrow-down" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="mt-3">
+        <label for="synthSelect">Instrument:</label>
+        <select
+          class="form-select"
+          aria-label="Default select example"
+          id="synthSelect"
+        >
+          <option selected value="std">Synth</option>
+          <option value="am">AM Synth</option>
+          <option value="fm">FM Synth</option>
+          <option value="duo">Duo Synth</option>
+          <option value="membrane">Membrane Synth</option>
+          <option value="metal">Metal Synth</option>
+        </select>
+      </div>
     </div>
 
     <ul class="keyboard set">
       <li class="key white c">
         <div id="c" class="d-flex justify-content-center align-items-center">
-          [C]
+          [Z]
         </div>
       </li>
       <li class="key black cs">
         <div id="cs" class="d-flex justify-content-center align-items-center">
-          [C#]
+          [S]
         </div>
       </li>
       <li class="key white d">
         <div id="d" class="d-flex justify-content-center align-items-center">
-          [D]
+          [X]
         </div>
       </li>
       <li class="key black ds">
         <div id="ds" class="d-flex justify-content-center align-items-center">
-          [D#]
+          [D]
         </div>
       </li>
       <li class="key white e">
         <div id="e" class="d-flex justify-content-center align-items-center">
-          [E]
+          [C]
         </div>
       </li>
       <li class="key white f">
         <div id="f" class="d-flex justify-content-center align-items-center">
-          [F]
+          [V]
         </div>
       </li>
       <li class="key black fs">
         <div id="fs" class="d-flex justify-content-center align-items-center">
-          [F#]
+          [G]
         </div>
       </li>
       <li class="key white g">
         <div id="g" class="d-flex justify-content-center align-items-center">
-          [G]
+          [B]
         </div>
       </li>
       <li class="key black gs">
         <div id="gs" class="d-flex justify-content-center align-items-center">
-          [G#]
+          [H]
         </div>
       </li>
       <li class="key white a">
         <div id="a" class="d-flex justify-content-center align-items-center">
-          [A]
+          [N]
         </div>
       </li>
       <li class="key black as">
         <div id="as" class="d-flex justify-content-center align-items-center">
-          [A#]
+          [J]
         </div>
       </li>
       <li class="key white b">
         <div id="b" class="d-flex justify-content-center align-items-center">
-          [B]
+          [M]
         </div>
       </li>
     </ul>
