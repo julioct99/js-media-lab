@@ -90,7 +90,6 @@
 
 .color-box {
   margin-top: 25px;
-  display: none;
   padding: 15px; }
   .color-box .color,
   .color-box #mainColor {
@@ -111,18 +110,21 @@
 body {
   background-color: whitesmoke; }
 
+small {
+  opacity: 0.5; }
+
 .main-image {
   width: 150px; }
 
 .btn-link {
   transition: all 0.2s; }
-
-.btn-link:hover {
-  text-decoration: none;
-  transform: scale(1.02);
-  border-radius: 0;
-  border-left: 10px solid yellow;
-  transition: all 0.2s; }
+  .btn-link:hover, .btn-link:active, .btn-link:focus {
+    text-decoration: none; }
+  .btn-link:hover {
+    transform: scale(1.02);
+    border-radius: 0;
+    border-left: 10px solid yellow;
+    transition: all 0.25s; }
 
 .material-icons {
   vertical-align: middle; }
