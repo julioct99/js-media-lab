@@ -44,3 +44,15 @@ body {
     padding: 0 10px;
   }
 }
+
+.s-display {
+  margin-left: 4px;
+  color: yellow;
+  font-weight: bolder;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+}
+
+.form-control-range {
+  border-radius: 5px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+}

@@ -160,7 +160,7 @@
             >
               <div class="card-body bg-primary">
                 <button class="btn btn-light" id="extractColorsBtn" disabled>
-                  Extract colors
+                  EXTRACT COLORS
                 </button>
                 <div class="color-box">
                   <p>Dominant color:</p>
@@ -206,16 +206,46 @@
               data-parent="#accordion"
             >
               <div class="card-body bg-primary">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life
-                accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                non cupidatat skateboard dolor brunch. Food truck quinoa
-                nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua
-                put a bird on it squid single-origin coffee nulla assumenda
-                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
-                wes anderson cred nesciunt sapiente ea proident. Ad vegan
-                excepteur butcher vice lomo. Leggings occaecat craft beer
-                farm-to-table, raw denim aesthetic synth nesciunt you probably
-                haven't heard of them accusamus labore sustainable VHS.
+                <form>
+                  <div class="form-group">
+                    <label for="quality-range">Quality</label>
+                    <input
+                      type="range"
+                      class="form-control-range bg-dark"
+                      id="quality-range"
+                      min="0"
+                      max="1"
+                      step="0.01"
+                      oninput="this.nextElementSibling.value = this.value"
+                    />
+                    <output>0.5</output>
+                  </div>
+                </form>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    Original:
+                    <span class="s-display" id="originalSizeDisplay"></span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    Compressed:
+                    <span class="s-display" id="compressedSizeDisplay"></span>
+                  </div>
+                </div>
+
+                <div class="row mb-1">
+                  <div class="col-sm-12">
+                    Compression:
+                    <span class="s-display" id="totalCompressionDisplay"></span>
+                  </div>
+                </div>
+                <img
+                  class="img-fluid"
+                  id="imgPreviewCompression"
+                  src="https://e-fisiomedic.com/wp-content/uploads/2013/11/default-placeholder.png"
+                />
               </div>
             </div>
           </div>
@@ -261,6 +291,11 @@
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.min.js"
       integrity="sha512-mMe7BAZPOkGbq+zhRBMNV3Q+5ZDzcUEOJoUYXbHpEcODkDBYbttaW7P108jX66AQgwgsAjvlP4Ayb/XLJZfmsg=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.0.7/compressor.min.js"
+      integrity="sha512-ZNlHFR9FBdeIlhwh040g5JmmYj7DQOwkqb9Y+DBJ1MaTzRMxKZkfHWkQU/dazDn9XRriajfh7ZGFksBKeUCsCg=="
       crossorigin="anonymous"
     ></script>
     <script src="index.js"></script>
