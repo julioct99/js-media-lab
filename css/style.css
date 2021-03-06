@@ -70,11 +70,7 @@
   margin: 0 0 0 -1em; }
 
 .control-box {
-  background-color: #007bff;
   color: white;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
   height: fit-content; }
   @media (max-width: 600px) {
     .control-box {
@@ -114,6 +110,19 @@ body {
 
 .main-image {
   width: 150px; }
+
+.btn-link {
+  transition: all 0.2s; }
+
+.btn-link:hover {
+  text-decoration: none;
+  transform: scale(1.02);
+  border-radius: 0;
+  border-left: 10px solid yellow;
+  transition: all 0.2s; }
+
+.material-icons {
+  vertical-align: middle; }
 
 .nav-item.active {
   height: 100%;

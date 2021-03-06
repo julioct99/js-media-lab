@@ -17,6 +17,22 @@ body {
   width: 150px;
 }
 
+.btn-link {
+  transition: all 0.2s;
+}
+
+.btn-link:hover {
+  text-decoration: none;
+  transform: scale(1.02);
+  border-radius: 0;
+  border-left: 10px solid yellow;
+  transition: all 0.2s;
+}
+
+.material-icons {
+  vertical-align: middle;
+}
+
 .nav-item {
   &.active {
     height: 100%;
