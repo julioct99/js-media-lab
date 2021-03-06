@@ -88,11 +88,9 @@ function compressImage() {
 
 function displayCompressionResults(result) {
   const originalSize = bytesToSize(imgFile.size);
-  const originalSizeInt = sizeToInt(originalSize);
   const compressedSize = bytesToSize(result.size);
-  const compressedSizeInt = sizeToInt(compressedSize);
   const compression = (
-    ((originalSizeInt - compressedSizeInt) / originalSizeInt) *
+    ((imgFile.size - result.size) / imgFile.size) *
     100
   ).toFixed(2);
 
