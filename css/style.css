@@ -147,3 +147,6 @@ small {
 .form-control-range {
   border-radius: 5px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.6); }
+
+#my-video {
+  margin: 0 auto; }

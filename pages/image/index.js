@@ -30,15 +30,21 @@ const colorThief = new ColorThief();
 let colors = [];
 let mainColor;
 
-let imgFile;
-let imgURL;
+const image = {
+  file: null,
+  url: '',
+};
 
 imgInput.addEventListener('change', () => {
-  imgFile = imgInput.files[0];
-  imgURL = URL.createObjectURL(imgFile);
-  loadImage(false);
-  resetFilters();
-  compressImage();
+  image.file = imgInput.files[0];
+  image.url = URL.createObjectURL(image.file);
+  if (isImage(image.file)) {
+    loadImage(false);
+    resetFilters();
+    compressImage();
+  } else {
+    alert('The file must be an image');
+  }
 });
 
 function loadImage(isReset) {
@@ -47,7 +53,7 @@ function loadImage(isReset) {
     <img
       class="img-fluid"
       id="imgPreview"
-      src="${imgURL}"
+      src="${image.url}"
     />
   `;
   imgPreview = document.querySelector('#imgPreview');
@@ -55,6 +61,12 @@ function loadImage(isReset) {
     if (!isReset) extractPalette();
     setAccordionDisabled(false);
   });
+}
+
+function isImage(file) {
+  const [type, extension] = file.type.split('/');
+  if (type !== 'image') return false;
+  return true;
 }
 
 function setAccordionDisabled(disabled) {
@@ -98,7 +110,7 @@ const rgbToHex = (r, g, b) =>
 qualityRange.addEventListener('change', compressImage);
 
 function compressImage() {
-  new Compressor(imgFile, {
+  new Compressor(image.file, {
     quality: +qualityRange.value,
     success(result) {
       displayCompressionResults(result);
@@ -107,10 +119,10 @@ function compressImage() {
 }
 
 function displayCompressionResults(result) {
-  const originalSize = bytesToSize(imgFile.size);
+  const originalSize = bytesToSize(image.file.size);
   const compressedSize = bytesToSize(result.size);
   const compression = (
-    ((imgFile.size - result.size) / imgFile.size) *
+    ((image.file.size - result.size) / image.file.size) *
     100
   ).toFixed(2);
 
