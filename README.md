@@ -1,4 +1,4 @@
-#Test multimedia JavaScript functionalities in an interactive way.
+# Test multimedia JavaScript functionalities in an interactive way.
 
 ### Libraries:
 
@@ -8,4 +8,3 @@ ColorThief.js
 Compressor.js
 Caman.js
 
-### JS Native APIs:
