@@ -64,9 +64,8 @@ function loadImage(isReset) {
 }
 
 function isImage(file) {
-  const [type, extension] = file.type.split('/');
-  if (type !== 'image') return false;
-  return true;
+  const [type, _] = file.type.split('/');
+  return type === 'image';
 }
 
 function setAccordionDisabled(disabled) {

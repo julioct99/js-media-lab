@@ -36,8 +36,5 @@ function loadVideo() {
 
 function formatIsValid(file) {
   const [type, extension] = file.file.type.split('/');
-  if (type !== 'video' || !supportedFormats.includes(extension)) {
-    return false;
-  }
-  return true;
+  return type === 'video' && supportedFormats.includes(extension);
 }
