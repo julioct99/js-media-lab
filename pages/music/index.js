@@ -1,3 +1,9 @@
+const synthSelect = document.querySelector('#synthSelect');
+const pianoKeys = document.querySelectorAll('.key');
+const octaveDownBtn = document.querySelector('#octaveDownBtn');
+const octaveUpBtn = document.querySelector('#octaveUpBtn');
+const octaveDisplay = document.querySelector('#octaveSpan');
+
 const noteMap = {
   z: 'c',
   s: 'cs',
@@ -13,33 +19,15 @@ const noteMap = {
   m: 'b',
 };
 
-const pressedKeys = [];
-
-function addPressedKey(keyCode) {
-  const tone = keyCode.toUpperCase().replace('S', '#') + octave;
-  pressedKeys.push(tone);
-}
-
-function removedPressedKey(keyCode) {
-  const index = pressedKeys.indexOf(keyCode);
-  pressedKeys.splice(index, 1);
-}
-
-let isPolyphonic = false;
 let octave = 4;
 let synth = new Tone.Synth().toDestination();
 
 function playKey(keyCode) {
-  console.log(pressedKeys);
-  if (isPolyphonic) {
-    synth.triggerAttackRelease(pressedKeys, '6n');
-  } else {
-    const tone = keyCode.toUpperCase().replace('S', '#') + octave;
-    synth.triggerAttackRelease(tone, '6n');
-  }
+  const tone = keyCode.toUpperCase().replace('S', '#') + octave;
+  synth.triggerAttackRelease(tone, '6n');
 }
 
-document.querySelector('#synthSelect').addEventListener('change', (event) => {
+synthSelect.addEventListener('change', (event) => {
   switch (event.target.value) {
     case 'std':
       synth = new Tone.Synth().toDestination();
@@ -62,33 +50,21 @@ document.querySelector('#synthSelect').addEventListener('change', (event) => {
   }
 });
 
-document.querySelectorAll('.key').forEach((key) => {
+pianoKeys.forEach((key) => {
   key.addEventListener('click', (event) => playKey(event.target.id));
 });
 
-document.querySelector('#isPolyphonic').addEventListener('change', (event) => {
-  isPolyphonic = event.target.checked;
-  if (isPolyphonic) {
-    synth = new Tone.PolySynth(Tone.Synth).toDestination();
-  }
-});
+octaveDownBtn.addEventListener('click', () => changeOctave('down'));
 
-document
-  .querySelector('#octaveDownBtn')
-  .addEventListener('click', () => changeOctave('down'));
-
-document
-  .querySelector('#octaveUpBtn')
-  .addEventListener('click', () => changeOctave('up'));
+octaveUpBtn.addEventListener('click', () => changeOctave('up'));
 
 document.addEventListener('keydown', (event) => {
   if (!event.repeat) {
     const key = event.key.toLowerCase();
     const keyCode = noteMap[key];
     if (keyCode) {
-      const pianoKey = document.querySelector('.' + keyCode);
+      const pianoKey = getElementByClassName(keyCode);
       pianoKey.classList.add('active');
-      addPressedKey(keyCode);
       playKey(keyCode);
     } else {
       if (key === 'q') {
@@ -104,9 +80,8 @@ document.addEventListener('keyup', (event) => {
   const key = event.key.toLowerCase();
   const keyCode = noteMap[key];
   if (keyCode) {
-    const pianoKey = document.querySelector('.' + keyCode);
+    const pianoKey = getElementByClassName(keyCode);
     pianoKey.classList.remove('active');
-    removedPressedKey(keyCode);
   }
 });
 
@@ -116,5 +91,8 @@ function changeOctave(direction) {
   } else if (direction === 'down' && octave > 1) {
     octave--;
   }
-  document.querySelector('#octaveSpan').textContent = `Octave (${octave})`;
+  octaveDisplay.textContent = `Octave (${octave})`;
 }
+
+const getElementByClassName = (classname) =>
+  document.querySelector('.' + classname);

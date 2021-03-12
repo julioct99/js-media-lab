@@ -3,26 +3,25 @@ const imgPreviewContainer = document.querySelector('#img-preview-container');
 const accordionButtons = document.querySelectorAll('.btn-accordion');
 let imgPreview = document.querySelector('#imgPreview');
 
-/* COMPRESSION HTML ELEMENTS */
+/* COMPRESSION */
 const imgPreviewCompression = document.querySelector('#imgPreviewCompression');
-const qualityRange = document.querySelector('#quality-range');
+const qualityInput = document.querySelector('#quality-input');
 const originalSizeDisplay = document.querySelector('#originalSizeDisplay');
 const compressedSizeDisplay = document.querySelector('#compressedSizeDisplay');
 const compressionDisplay = document.querySelector('#compression-display');
 const acceptedCompressionFormats = ['image/jpeg', 'image/webp'];
 
-/* FILTERS HTML ELEMENTS */
+/* FILTERS */
 const filtersForm = document.querySelector('#filters-form');
 const resetFiltersBtn = document.querySelector('#reset-filters-btn');
-const filterRangeInputs = document.querySelectorAll('.filters-range');
-const filterRangeOutputs = document.querySelectorAll('.filter-range-output');
-const brightnessRange = document.querySelector('#brightness-range');
-const contrastRange = document.querySelector('#contrast-range');
-const sepiaRange = document.querySelector('#sepia-range');
-const saturationRange = document.querySelector('#saturation-range');
-let hasAppliedFilters = false;
+const filterInputs = document.querySelectorAll('.filters-input');
+const filterOutputs = document.querySelectorAll('.filters-output');
+const brightnessInput = document.querySelector('#brightness-input');
+const contrastInput = document.querySelector('#contrast-input');
+const sepiaInput = document.querySelector('#sepia-input');
+const saturationInput = document.querySelector('#saturation-input');
 
-/* COLOR PALETTE HTML ELEMENTS */
+/* COLOR PALETTE */
 const colorBox = document.querySelector('.color-box');
 const mainColorDiv = document.querySelector('#mainColor');
 const secondaryColorDivs = document.querySelectorAll('.color');
@@ -39,7 +38,7 @@ imgInput.addEventListener('change', () => {
   image.file = imgInput.files[0];
   image.url = URL.createObjectURL(image.file);
   if (isImage(image.file)) {
-    loadImage(false);
+    loadImage({ isReset: false });
     resetFilters();
     compressImage();
   } else {
@@ -47,8 +46,8 @@ imgInput.addEventListener('change', () => {
   }
 });
 
-function loadImage(isReset) {
-  setAccordionDisabled(true);
+function loadImage(options) {
+  setAccordionDisabled(false);
   imgPreviewContainer.innerHTML = `
     <img
       class="img-fluid"
@@ -58,7 +57,7 @@ function loadImage(isReset) {
   `;
   imgPreview = document.querySelector('#imgPreview');
   imgPreview.addEventListener('load', () => {
-    if (!isReset) extractPalette();
+    if (!options.isReset) extractPalette();
     setAccordionDisabled(false);
   });
 }
@@ -74,7 +73,9 @@ function setAccordionDisabled(disabled) {
   );
 }
 
-/* COLORTHIEF.JS */
+//
+// ─── COLORTHIEF.JS ────────────────────────────────────────────────────────────────────
+//
 
 function extractPalette() {
   mainColor = colorThief.getColor(imgPreview);
@@ -91,9 +92,7 @@ function setColor(element, color) {
   element.textContent = rgbToHex(...color);
 }
 
-function getRGB(color) {
-  return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
-}
+const getRGB = (color) => `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
 
 const rgbToHex = (r, g, b) =>
   '#' +
@@ -104,13 +103,15 @@ const rgbToHex = (r, g, b) =>
     })
     .join('');
 
-/* COMPRESSOR.JS */
+//
+// ─── COMPRESSOR.JS ────────────────────────────────────────────────────────────────────
+//
 
-qualityRange.addEventListener('change', compressImage);
+qualityInput.addEventListener('change', compressImage);
 
 function compressImage() {
   new Compressor(image.file, {
-    quality: +qualityRange.value,
+    quality: +qualityInput.value,
     success(result) {
       displayCompressionResults(result);
     },
@@ -120,14 +121,14 @@ function compressImage() {
 function displayCompressionResults(result) {
   const originalSize = bytesToSize(image.file.size);
   const compressedSize = bytesToSize(result.size);
-  const compression = (
+  const compressionRate = (
     ((image.file.size - result.size) / image.file.size) *
     100
   ).toFixed(2);
 
   originalSizeDisplay.textContent = originalSize;
   compressedSizeDisplay.textContent = compressedSize;
-  compressionDisplay.textContent = compression + '%';
+  compressionDisplay.textContent = compressionRate + '%';
 
   const url = URL.createObjectURL(result);
   imgPreviewCompression.src = url;
@@ -142,11 +143,13 @@ function bytesToSize(bytes) {
 
 const sizeToInt = (sizeString) => sizeString.split(' ')[0];
 
-/* CAMAN.JS */
+//
+// ─── CAMAN.JS ────────────────────────────────────────────────────────────────────
+//
 
-filterRangeInputs.forEach((filterRangeInput) =>
-  filterRangeInput.addEventListener('change', () => {
-    loadImage(true);
+filterInputs.forEach((filterInput) =>
+  filterInput.addEventListener('change', () => {
+    loadImage({ isReset: true });
     applyFilters();
   })
 );
@@ -154,20 +157,17 @@ filterRangeInputs.forEach((filterRangeInput) =>
 resetFiltersBtn.addEventListener('click', resetFilters);
 
 function resetFilters() {
-  loadImage(true);
-  filterRangeInputs.forEach((filterRangeInput) => (filterRangeInput.value = 0));
-  filterRangeOutputs.forEach(
-    (filterRangeOutput) => (filterRangeOutput.textContent = 0)
-  );
+  loadImage({ isReset: true });
+  filterInputs.forEach((filterInput) => (filterInput.value = 0));
+  filterOutputs.forEach((filterOutput) => (filterOutput.textContent = 0));
 }
 
 function applyFilters() {
   Caman('#imgPreview', function () {
-    hasAppliedFilters = true;
-    this.brightness(+brightnessRange.value);
-    this.contrast(+contrastRange.value);
-    this.sepia(+sepiaRange.value);
-    this.saturation(+saturationRange.value);
+    this.brightness(+brightnessInput.value);
+    this.contrast(+contrastInput.value);
+    this.sepia(+sepiaInput.value);
+    this.saturation(+saturationInput.value);
     this.render();
   });
 }
