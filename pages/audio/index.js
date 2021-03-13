@@ -2,6 +2,7 @@ const playPauseBtn = document.querySelector('#play-pause-btn');
 const volumeInput = document.querySelector('#volume-input');
 const fileInput = document.querySelector('#file-input');
 const progressValue = document.querySelector('.progress-value');
+const progressInput = document.querySelector('#progress-input');
 const spinner = document.querySelector('.lds-ring');
 
 window.URL = window.URL || window.webkitURL;
@@ -37,10 +38,13 @@ fileInput.addEventListener('change', () => {
   audioFile.sound.once('load', () => {
     audioFile.loaded = true;
     playPauseBtn.disabled = false;
+    progressInput.style.cursor = 'pointer';
 
     updatePlayButton();
     hideLoadingSpinner();
   });
+
+  audioFile.sound.once('end', updatePlayButton);
 
   clearInterval(progressInterval);
   progressInterval = setInterval(() => updateAudioProgress(), 25);
@@ -58,15 +62,43 @@ volumeInput.addEventListener('input', (event) => {
   Howler.volume(volume);
 });
 
+progressInput.addEventListener('input', (event) => {
+  if (!audioFile.sound) return;
+
+  if (!audioFile.sound.playing()) {
+    const percentProgress = event.target.value * 100;
+    progressValue.style.transition = 'none';
+    progressValue.style.width = percentProgress + '%';
+
+    const duration = audioFile.sound.duration();
+    const moveTo = duration * (percentProgress / 100);
+
+    audioFile.sound.seek(moveTo);
+  }
+});
+
 function pressPlayPauseButton() {
   if (!audioFile.loaded) return;
 
   if (audioFile.sound?.playing()) {
-    audioFile.sound?.pause();
+    handleAudioStop();
   } else {
-    audioFile.sound?.play();
+    handleAudioPlay();
   }
   updatePlayButton();
+}
+
+function handleAudioStop() {
+  audioFile.sound?.pause();
+  progressValue.style.background = '#4cbb17';
+  progressInput.style.cursor = 'pointer';
+}
+
+function handleAudioPlay() {
+  audioFile.sound?.play();
+  progressValue.style.transition = 'all 0.25s linear';
+  progressValue.style.background = '#007bff';
+  progressInput.style.cursor = 'not-allowed';
 }
 
 function updatePlayButton() {
@@ -83,11 +115,7 @@ function updateAudioProgress() {
     const duration = audioFile.sound.duration();
     const width = (currentTime / duration) * 100;
 
-    if (Math.round(width) === 100) {
-      updatePlayButton();
-    } else {
-      progressValue.style.width = width + '%';
-    }
+    progressValue.style.width = width.toFixed(2) + '%';
   }
 }
 

@@ -1,5 +1,5 @@
 .progress {
-  background: rgba(0, 0, 0, 0.125);
+  background-color: rgba(0, 0, 0, 0.125);
   border-radius: 100px;
   position: fixed;
   bottom: 5vh;
@@ -10,11 +10,21 @@
 }
 
 .progress-value {
-  background: #007bff;
-
+  background-color: #4cbb17;
+  position: relative;
+  left: 0;
   box-shadow: 0 10px 40px -10px black;
   border-radius: 100px;
   height: 40px;
   width: 0;
   transition: all 0.25s linear;
+}
+
+#progress-input {
+  z-index: 900;
+  height: 40px;
+  position: inherit;
+  width: 80vw;
+  cursor: not-allowed;
+  opacity: 0;
 }
