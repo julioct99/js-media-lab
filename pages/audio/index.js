@@ -43,7 +43,7 @@ fileInput.addEventListener('change', () => {
     clearInterval(progressInterval);
     progressInterval = setInterval(() => updateAudioProgress(), 25);
   } else {
-    alert('The file has to be an audio file');
+    alert(`The file has to be an audio file.`);
   }
 });
 
