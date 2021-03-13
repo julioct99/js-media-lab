@@ -1,6 +1,7 @@
 @import 'components/card';
 @import 'components/keyboard';
 @import 'components/control-box';
+@import 'components/progress-bar';
 
 * {
   margin: 0;
@@ -15,6 +16,10 @@ body {
 
 small {
   opacity: 0.5;
+}
+
+button:disabled {
+  cursor: not-allowed;
 }
 
 .main-image {

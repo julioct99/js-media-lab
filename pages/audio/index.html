@@ -86,6 +86,42 @@
       </div>
     </nav>
 
+    <div class="container text-center mt-5">
+      <div class="custom-file mb-5">
+        <input
+          type="file"
+          class="custom-file-input"
+          id="file-input"
+          style="cursor: pointer"
+        />
+        <label class="custom-file-label" for="customFile">
+          <span class="material-icons" style="vertical-align: middle">
+            upload
+          </span>
+          Choose file
+        </label>
+      </div>
+      <button class="btn btn-primary" id="play-pause-btn" disabled>
+        <span class="material-icons"> play_arrow </span>
+      </button>
+
+      <div class="mt-5">
+        <label for="volume-input" style="display: block">Volume</label>
+        <input
+          style="width: 50vw; margin: 0 auto"
+          type="range"
+          id="volume-input"
+          min="0"
+          max="1"
+          step="0.01"
+          value="1"
+        />
+      </div>
+    </div>
+    <div class="progress">
+      <div class="progress-value bg-primary"></div>
+    </div>
+
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -101,5 +137,11 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.1/howler.min.js"
+      integrity="sha512-L6Z/YtIPQ7eU3BProP34WGU5yIRk7tNHk7vaC2dB1Vy1atz6wl9mCkTPPZ2Rn1qPr+vY2mZ9odZLdGYuaBk7dQ=="
+      crossorigin="anonymous"
+    ></script>
+    <script src="index.js"></script>
   </body>
 </html>
