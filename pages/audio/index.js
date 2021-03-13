@@ -2,6 +2,7 @@ const playPauseBtn = document.querySelector('#play-pause-btn');
 const volumeInput = document.querySelector('#volume-input');
 const fileInput = document.querySelector('#file-input');
 const progressValue = document.querySelector('.progress-value');
+const spinner = document.querySelector('.lds-ring');
 
 const audioFile = {
   file: null,
@@ -17,6 +18,9 @@ fileInput.addEventListener('change', () => {
   audioFile.url = URL.createObjectURL(audioFile.file);
 
   if (isAudio(audioFile.file)) {
+    playPauseBtn.disabled = true;
+    displayLoadingSpinner();
+
     // type -> 'audio/wav', 'audio/mp3' ...
     const format = audioFile.file.type.split('/')[1];
 
@@ -33,12 +37,11 @@ fileInput.addEventListener('change', () => {
       progressValue.style.width = '0%';
 
       updatePlayButton();
+      hideLoadingSpinner();
     });
 
     clearInterval(progressInterval);
-    progressInterval = setInterval(() => {
-      updateAudioProgress();
-    }, 25);
+    progressInterval = setInterval(() => updateAudioProgress(), 25);
   } else {
     alert('The file has to be an audio file');
   }
@@ -74,17 +77,9 @@ function isAudio(file) {
 
 function updatePlayButton() {
   if (audioFile.sound && audioFile.sound.playing()) {
-    playPauseBtn.innerHTML = `
-      <span class="material-icons">
-        pause
-      </span>  
-    `;
+    playPauseBtn.innerHTML = `<span class="material-icons"> pause </span>`;
   } else {
-    playPauseBtn.innerHTML = `
-      <span class="material-icons">
-        play_arrow
-      </span>
-    `;
+    playPauseBtn.innerHTML = `<span class="material-icons"> play_arrow </span>`;
   }
 }
 
@@ -100,4 +95,12 @@ function updateAudioProgress() {
       progressValue.style.width = width + '%';
     }
   }
+}
+
+function displayLoadingSpinner() {
+  spinner.style.display = 'inline-block';
+}
+
+function hideLoadingSpinner() {
+  spinner.style.display = 'none';
 }
