@@ -112,12 +112,7 @@
   margin: 0 10vw; }
 
 .progress-value {
-  background: #1488cc;
-  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to left, #2b32b2, #1488cc);
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to left, #2b32b2, #1488cc);
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #007bff;
   box-shadow: 0 10px 40px -10px black;
   border-radius: 100px;
   height: 40px;

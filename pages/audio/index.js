@@ -4,6 +4,8 @@ const fileInput = document.querySelector('#file-input');
 const progressValue = document.querySelector('.progress-value');
 const spinner = document.querySelector('.lds-ring');
 
+window.URL = window.URL || window.webkitURL;
+
 const audioFile = {
   file: null,
   sound: null,
@@ -17,34 +19,31 @@ fileInput.addEventListener('change', () => {
   audioFile.file = fileInput.files[0];
   audioFile.url = URL.createObjectURL(audioFile.file);
 
-  if (isAudio(audioFile.file)) {
-    playPauseBtn.disabled = true;
-    displayLoadingSpinner();
+  playPauseBtn.disabled = true;
+  progressValue.style.width = '0%';
+  displayLoadingSpinner();
 
-    // type -> 'audio/wav', 'audio/mp3' ...
-    const format = audioFile.file.type.split('/')[1];
+  // type -> 'audio/wav', 'audio/mp3' ...
+  let format = [audioFile.file.type.split('/')[1]];
+  if (!audioFile.file.type) format = ['mp3', 'wav'];
 
-    audioFile.sound?.stop();
-    audioFile.sound = new Howl({
-      src: [audioFile.url],
-      format: [format],
-      volume: volumeInput.value,
-    });
+  audioFile.sound?.stop();
+  audioFile.sound = new Howl({
+    src: [audioFile.url],
+    format,
+    volume: volumeInput.value,
+  });
 
-    audioFile.sound.once('load', () => {
-      audioFile.loaded = true;
-      playPauseBtn.disabled = false;
-      progressValue.style.width = '0%';
+  audioFile.sound.once('load', () => {
+    audioFile.loaded = true;
+    playPauseBtn.disabled = false;
 
-      updatePlayButton();
-      hideLoadingSpinner();
-    });
+    updatePlayButton();
+    hideLoadingSpinner();
+  });
 
-    clearInterval(progressInterval);
-    progressInterval = setInterval(() => updateAudioProgress(), 25);
-  } else {
-    alert(`The file has to be an audio file.`);
-  }
+  clearInterval(progressInterval);
+  progressInterval = setInterval(() => updateAudioProgress(), 25);
 });
 
 document.addEventListener('keypress', (event) => {
@@ -68,11 +67,6 @@ function pressPlayPauseButton() {
     audioFile.sound?.play();
   }
   updatePlayButton();
-}
-
-function isAudio(file) {
-  const [type, extension] = file.type.split('/');
-  return type === 'audio';
 }
 
 function updatePlayButton() {
