@@ -32,8 +32,9 @@ fileInput.addEventListener('change', () => {
   audioFile.sound = new Howl({
     src: [audioFile.url],
     format,
-    volume: volumeInput.value,
   });
+
+  Howler.volume(volume);
 
   audioFile.sound.on('load', () => {
     audioFile.loaded = true;
