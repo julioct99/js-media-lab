@@ -181,6 +181,12 @@ small {
 button:disabled {
   cursor: not-allowed; }
 
+a,
+a:active,
+a:focus,
+a:hover {
+  text-decoration: none; }
+
 .main-image {
   width: 150px; }
 
