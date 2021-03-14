@@ -30,6 +30,11 @@ a:hover {
   text-decoration: none;
 }
 
+nav {
+  position: fixed;
+  top: 0;
+}
+
 .main-image {
   width: 150px;
 }
@@ -56,6 +61,8 @@ a:hover {
 }
 
 .nav-item {
+  margin: 0 4px;
+
   &.active {
     height: 100%;
     border-radius: 5px;
