@@ -35,7 +35,7 @@ fileInput.addEventListener('change', () => {
     volume: volumeInput.value,
   });
 
-  audioFile.sound.once('load', () => {
+  audioFile.sound.on('load', () => {
     audioFile.loaded = true;
     playPauseBtn.disabled = false;
     progressInput.style.cursor = 'pointer';
@@ -44,7 +44,7 @@ fileInput.addEventListener('change', () => {
     hideLoadingSpinner();
   });
 
-  audioFile.sound.once('end', updatePlayButton);
+  audioFile.sound.on('end', updatePlayButton);
 
   clearInterval(progressInterval);
   progressInterval = setInterval(() => updateAudioProgress(), 25);
@@ -102,6 +102,7 @@ function handleAudioPlay() {
 }
 
 function updatePlayButton() {
+  console.log(audioFile.sound.playing());
   if (audioFile.sound && audioFile.sound.playing()) {
     playPauseBtn.innerHTML = `<span class="material-icons"> pause </span>`;
   } else {
