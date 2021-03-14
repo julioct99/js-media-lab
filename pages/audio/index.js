@@ -34,7 +34,7 @@ fileInput.addEventListener('change', () => {
     format,
   });
 
-  Howler.volume(volume);
+  Howler.volume(volumeInput.value);
 
   audioFile.sound.on('load', () => {
     audioFile.loaded = true;
