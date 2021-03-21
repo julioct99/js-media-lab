@@ -3,7 +3,7 @@
 @import 'components/control-box';
 @import 'components/progress-bar';
 @import 'components/spinner';
-
+@import 'components/music-player-control';
 * {
   margin: 0;
   padding: 0;
@@ -16,7 +16,7 @@ body {
 }
 
 small {
-  opacity: 0.5;
+  opacity: 0.75;
 }
 
 button:disabled {
@@ -33,6 +33,14 @@ a:hover {
 nav {
   position: fixed;
   top: 0;
+}
+
+input[type='range'] {
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
 
 .main-image {
@@ -84,6 +92,10 @@ nav {
 .form-control-range {
   border-radius: 5px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+}
+
+.icon-lg {
+  font-size: 30px;
 }
 
 #my-video {

@@ -104,7 +104,7 @@
 .progress {
   background-color: rgba(0, 0, 0, 0.125);
   border-radius: 100px;
-  position: fixed;
+  position: absolute;
   bottom: 5vh;
   height: 40px;
   width: 80vw;
@@ -112,7 +112,7 @@
   margin: 0 10vw; }
 
 .progress-value {
-  background-color: #4cbb17;
+  background-color: #007bff;
   position: relative;
   left: 0;
   box-shadow: 0 10px 40px -10px black;
@@ -126,7 +126,6 @@
   height: 40px;
   position: inherit;
   width: 80vw;
-  cursor: not-allowed;
   opacity: 0; }
 
 .spinner-container {
@@ -166,6 +165,11 @@
   100% {
     transform: rotate(360deg); } }
 
+#music-player-controls {
+  position: absolute;
+  bottom: 100px;
+  width: 80vw; }
+
 * {
   margin: 0;
   padding: 0;
@@ -176,7 +180,7 @@ body {
   background-color: whitesmoke; }
 
 small {
-  opacity: 0.5; }
+  opacity: 0.75; }
 
 button:disabled {
   cursor: not-allowed; }
@@ -190,6 +194,11 @@ a:hover {
 nav {
   position: fixed;
   top: 0; }
+
+input[type='range'] {
+  cursor: pointer; }
+  input[type='range']:disabled {
+    cursor: not-allowed; }
 
 .main-image {
   width: 150px; }
@@ -226,6 +235,9 @@ nav {
 .form-control-range {
   border-radius: 5px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.6); }
+
+.icon-lg {
+  font-size: 30px; }
 
 #my-video {
   margin: 0 auto; }
