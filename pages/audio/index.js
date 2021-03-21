@@ -2,11 +2,13 @@ const playPauseBtn = document.querySelector('#play-pause-btn');
 const playbackRateBtn = document.querySelector('#playback-rate-btn');
 const playbackRateDisplay = document.querySelector('#playback-rate-display');
 const loopBtn = document.querySelector('#loop-btn');
+const loopDisplay = document.querySelector('#loop-display');
 const volumeInput = document.querySelector('#volume-input');
 const fileInput = document.querySelector('#file-input');
 const progressValue = document.querySelector('.progress-value');
 const progressInput = document.querySelector('#progress-input');
 const spinner = document.querySelector('.lds-ring');
+const fileNameDisplay = document.querySelector('#file-name-display');
 
 let progressInputIsActive = false;
 let progressInterval = null;
@@ -70,8 +72,9 @@ playPauseBtn.addEventListener('click', pressPlayPauseButton);
 
 loopBtn.addEventListener('click', () => {
   audioFile.loop = !audioFile.loop;
-  audioFile.sound.loop(audioFile.loop);
+  audioFile.sound?.loop(audioFile.loop);
   loopBtn.classList.toggle('active');
+  loopDisplay.textContent = audioFile.loop ? 'On' : 'Off';
 });
 
 volumeInput.addEventListener('input', (event) => {
@@ -137,5 +140,6 @@ function handleSoundLoaded() {
   playPauseBtn.disabled = false;
   progressInput.disabled = false;
   spinner.style.display = 'none';
+  fileNameDisplay.textContent = audioFile.file.name;
   updatePlayButton();
 }

@@ -166,9 +166,7 @@
     transform: rotate(360deg); } }
 
 #music-player-controls {
-  position: absolute;
-  bottom: 100px;
-  width: 80vw; }
+  margin-top: 15vh; }
 
 * {
   margin: 0;
@@ -241,3 +239,11 @@ input[type='range'] {
 
 #my-video {
   margin: 0 auto; }
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 25px; } }
+
+@media (max-width: 320px) {
+  h1 {
+    font-size: 18px; } }
