@@ -9,6 +9,8 @@ const progressValue = document.querySelector('.progress-value');
 const progressInput = document.querySelector('#progress-input');
 const spinner = document.querySelector('.lds-ring');
 const fileNameDisplay = document.querySelector('#file-name-display');
+const currentTimeDisplay = document.querySelector('#current-time-display');
+const totalTimeDisplay = document.querySelector('#total-time-display');
 
 let progressInputIsActive = false;
 let progressInterval = null;
@@ -74,7 +76,7 @@ loopBtn.addEventListener('click', () => {
   audioFile.loop = !audioFile.loop;
   audioFile.sound?.loop(audioFile.loop);
   loopBtn.classList.toggle('active');
-  loopDisplay.textContent = audioFile.loop ? 'On' : 'Off';
+  loopDisplay.textContent = audioFile.loop ? 'On ' : 'Off';
 });
 
 volumeInput.addEventListener('input', (event) => {
@@ -127,12 +129,16 @@ function updateAudioProgress() {
     const duration = audioFile.sound.duration();
     const width = (currentTime / duration) * 100;
     progressValue.style.width = width.toFixed(2) + '%';
+    currentTimeDisplay.textContent = toTimeString(currentTime);
   }
 }
 
 function setAudioProgress(percentProgress) {
   progressValue.style.transition = 'none';
   progressValue.style.width = percentProgress + '%';
+  const duration = audioFile.sound.duration();
+  const moveTo = duration * (percentProgress / 100);
+  currentTimeDisplay.textContent = toTimeString(moveTo);
 }
 
 function handleSoundLoaded() {
@@ -141,5 +147,10 @@ function handleSoundLoaded() {
   progressInput.disabled = false;
   spinner.style.display = 'none';
   fileNameDisplay.textContent = audioFile.file.name;
+  totalTimeDisplay.textContent = toTimeString(audioFile.sound.duration());
+  currentTimeDisplay.textContent = toTimeString(0);
   updatePlayButton();
 }
+
+const toTimeString = (seconds) =>
+  new Date(seconds * 1000).toISOString().substr(11, 8);

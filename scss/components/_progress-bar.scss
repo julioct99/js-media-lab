@@ -11,8 +11,6 @@
 
 .progress-value {
   background-color: #007bff;
-  position: relative;
-  left: 0;
   box-shadow: 0 10px 40px -10px black;
   border-radius: 100px;
   height: 40px;
@@ -26,4 +24,16 @@
   position: inherit;
   width: 80vw;
   opacity: 0;
+}
+
+#second {
+  display: inline-block;
+  position: absolute;
+  width: 80vw;
+  margin: 0 10vw;
+  bottom: 11vh;
+}
+
+#total-time-display {
+  float: right;
 }
