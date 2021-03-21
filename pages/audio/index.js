@@ -44,6 +44,9 @@ fileInput.addEventListener('change', () => {
 
   audioFile.sound.on('load', handleSoundLoaded);
   audioFile.sound.on('end', updatePlayButton);
+  audioFile.sound.on('stop', () => {
+    progressValue.style.transition = 'all 0.25s linear';
+  });
 
   clearInterval(progressInterval);
   progressInterval = setInterval(() => updateAudioProgress(), 25);
