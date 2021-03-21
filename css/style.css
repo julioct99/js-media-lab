@@ -126,7 +126,7 @@
   width: 80vw;
   opacity: 0; }
 
-#second {
+#time-display-container {
   display: inline-block;
   position: absolute;
   width: 80vw;
