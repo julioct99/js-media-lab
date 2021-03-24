@@ -31,6 +31,7 @@ fileInput.addEventListener('change', () => {
   audioFile.file = fileInput.files[0];
   audioFile.url = URL.createObjectURL(audioFile.file);
   audioFile.format = [getFileType(audioFile.file)] || ['mp3', 'wav'];
+  alert(audioFile.format);
   initHowler();
 });
 
