@@ -14,7 +14,7 @@ const totalTimeDisplay = document.querySelector('#total-time-display');
 
 let progressInputIsActive = false;
 let progressInterval = null;
-const rates = [0.5, 1.0, 1.5, 2.0];
+const rates = [0.5, 0.7, 1.0, 1.5, 2.0];
 
 const audioFile = {
   file: null,
@@ -22,44 +22,87 @@ const audioFile = {
   url: '',
   loaded: false,
   loop: false,
-  rate: rates[1],
+  rate: 1.0,
+  format: '',
 };
 
 fileInput.addEventListener('change', () => {
+  setInterfaceReady(false);
   audioFile.file = fileInput.files[0];
   audioFile.url = URL.createObjectURL(audioFile.file);
+  audioFile.format = [getFileType(audioFile.file)] || ['mp3', 'wav'];
+  initHowler();
+});
 
-  playPauseBtn.disabled = true;
-  progressValue.style.width = '0%';
-  progressInput.disabled = true;
-  spinner.style.display = 'inline-block';
+function setInterfaceReady(ready) {
+  spinner.style.display = ready ? 'none' : 'inline-block';
+  playPauseBtn.disabled = ready ? false : true;
+  progressInput.disabled = ready ? false : true;
+  updatePlayButton();
+}
 
-  // type -> 'audio/wav', 'audio/mp3' ...
-  let format = [audioFile.file.type.split('/')[1]];
-  if (!audioFile.file.type) format = ['mp3', 'wav'];
+function updatePlayButton() {
+  if (!audioFile.sound) return;
 
+  const className = 'material-icons icon-lg';
+  const iconName = audioFile.sound.playing() ? 'pause' : 'play_arrow';
+  progressValue.style.transition = 'all 0.25s linear';
+  playPauseBtn.innerHTML = `<span class="${className}"> ${iconName} </span>`;
+}
+
+function initHowler(format) {
   audioFile.sound?.stop();
   audioFile.sound = new Howl({
     src: [audioFile.url],
     rate: audioFile.rate,
-    format,
+    format: audioFile.format,
   });
-  Howler.volume(volumeInput.value);
-
   audioFile.sound.on('load', handleSoundLoaded);
-  audioFile.sound.on('end', updatePlayButton);
-  audioFile.sound.on('stop', () => {
-    progressValue.style.transition = 'all 0.25s linear';
-  });
+  audioFile.sound.on('end', handleSoundEnded);
+  audioFile.sound.on('stop', handleSoundStopped);
+  Howler.volume(volumeInput.value);
+}
 
-  clearInterval(progressInterval);
+function handleSoundLoaded() {
+  audioFile.loaded = true;
+  fileNameDisplay.textContent = audioFile.file.name;
+  totalTimeDisplay.textContent = toTimeString(audioFile.sound.duration());
+  currentTimeDisplay.textContent = toTimeString(0);
   progressInterval = setInterval(() => updateAudioProgress(), 25);
-});
+  setInterfaceReady(true);
+}
+
+function handleSoundEnded() {
+  updatePlayButton();
+}
+
+function handleSoundStopped() {
+  progressValue.style.width = '0%';
+  progressValue.style.transition = 'all 0.25s linear';
+  clearInterval(progressInterval);
+}
+
+function updateAudioProgress() {
+  if (progressInputIsActive || !audioFile.sound || !audioFile.sound.playing()) return;
+
+  const currentTime = audioFile.sound.seek();
+  const duration = audioFile.sound.duration();
+  const width = (currentTime / duration) * 100;
+  progressValue.style.width = width.toFixed(2) + '%';
+  currentTimeDisplay.textContent = toTimeString(currentTime);
+}
 
 document.addEventListener('keypress', (event) => {
   const key = event.key.toLowerCase();
   if (key === ' ') pressPlayPauseButton();
 });
+
+function pressPlayPauseButton() {
+  if (!audioFile.loaded) return;
+
+  audioFile.sound?.playing() ? audioFile.sound.pause() : audioFile.sound.play();
+  updatePlayButton();
+}
 
 playbackRateBtn.addEventListener('click', () => {
   const currentRateIndex = rates.indexOf(audioFile.rate);
@@ -67,10 +110,8 @@ playbackRateBtn.addEventListener('click', () => {
   const rate = rates[newRateIndex];
   audioFile.rate = rate;
   audioFile.sound?.rate(rate);
-  playbackRateDisplay.textContent = rate % 1 !== 0 ? rate : rate + '.0';
+  playbackRateDisplay.textContent = hasDecimal(rate) ? rate : rate + '.0';
 });
-
-playPauseBtn.addEventListener('click', pressPlayPauseButton);
 
 loopBtn.addEventListener('click', () => {
   audioFile.loop = !audioFile.loop;
@@ -79,78 +120,30 @@ loopBtn.addEventListener('click', () => {
   loopDisplay.textContent = audioFile.loop ? 'On ' : 'Off';
 });
 
-volumeInput.addEventListener('input', (event) => {
-  const volume = event.target.value;
-  Howler.volume(volume);
-});
-
 progressInput.addEventListener('input', (event) => {
-  if (!audioFile.sound) return;
-  progressInputIsActive = true;
   const percentProgress = event.target.value * 100;
+  progressInputIsActive = true;
   setAudioProgress(percentProgress);
 });
 
 progressInput.addEventListener('change', (event) => {
-  progressInputIsActive = false;
-
   const percentProgress = event.target.value * 100;
-  setAudioProgress(percentProgress);
-  const duration = audioFile.sound.duration();
-  const moveTo = duration * (percentProgress / 100);
-  audioFile.sound.seek(moveTo);
+  progressInputIsActive = false;
+  setAudioProgress(percentProgress, { seek: true });
 });
 
-function pressPlayPauseButton() {
-  if (!audioFile.loaded) return;
-
-  if (audioFile.sound?.playing()) {
-    audioFile.sound.pause();
-  } else {
-    audioFile.sound.play();
-  }
-  updatePlayButton();
-}
-
-function updatePlayButton() {
-  progressValue.style.transition = 'all 0.25s linear';
-  const className = 'material-icons icon-lg';
-
-  if (audioFile.sound && audioFile.sound.playing()) {
-    playPauseBtn.innerHTML = `<span class="${className}"> pause </span>`;
-  } else {
-    playPauseBtn.innerHTML = `<span class="${className}"> play_arrow </span>`;
-  }
-}
-
-function updateAudioProgress() {
-  if (!progressInputIsActive && audioFile.sound && audioFile.sound.playing()) {
-    const currentTime = audioFile.sound.seek();
-    const duration = audioFile.sound.duration();
-    const width = (currentTime / duration) * 100;
-    progressValue.style.width = width.toFixed(2) + '%';
-    currentTimeDisplay.textContent = toTimeString(currentTime);
-  }
-}
-
-function setAudioProgress(percentProgress) {
-  progressValue.style.transition = 'none';
-  progressValue.style.width = percentProgress + '%';
+function setAudioProgress(percentProgress, options) {
   const duration = audioFile.sound.duration();
   const moveTo = duration * (percentProgress / 100);
+  progressValue.style.transition = 'none';
+  progressValue.style.width = percentProgress + '%';
   currentTimeDisplay.textContent = toTimeString(moveTo);
+  if (options?.seek) audioFile.sound?.seek(moveTo);
 }
 
-function handleSoundLoaded() {
-  audioFile.loaded = true;
-  playPauseBtn.disabled = false;
-  progressInput.disabled = false;
-  spinner.style.display = 'none';
-  fileNameDisplay.textContent = audioFile.file.name;
-  totalTimeDisplay.textContent = toTimeString(audioFile.sound.duration());
-  currentTimeDisplay.textContent = toTimeString(0);
-  updatePlayButton();
-}
+playPauseBtn.addEventListener('click', pressPlayPauseButton);
+volumeInput.addEventListener('input', (event) => Howler.volume(event.target.value));
 
-const toTimeString = (seconds) =>
-  new Date(seconds * 1000).toISOString().substr(11, 12);
+const toTimeString = (seconds) => new Date(seconds * 1000).toISOString().substr(11, 12);
+const hasDecimal = (number) => number % 1 !== 0;
+const getFileType = (file) => file.type.split('/')[1];

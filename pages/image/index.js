@@ -14,8 +14,8 @@ const acceptedCompressionFormats = ['image/jpeg', 'image/webp'];
 /* FILTERS */
 const filtersForm = document.querySelector('#filters-form');
 const resetFiltersBtn = document.querySelector('#reset-filters-btn');
-const filterInputs = document.querySelectorAll('.filters-input');
-const filterOutputs = document.querySelectorAll('.filters-output');
+const filterInputs = document.querySelectorAll('.filter-input');
+const filterOutputs = document.querySelectorAll('.filter-output');
 const brightnessInput = document.querySelector('#brightness-input');
 const contrastInput = document.querySelector('#contrast-input');
 const sepiaInput = document.querySelector('#sepia-input');

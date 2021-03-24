@@ -1,5 +1,6 @@
 const videoContainer = document.querySelector('#video-container');
 const videoInput = document.querySelector('#video-upload');
+const fileNameDisplay = document.querySelector('#file-name-display');
 
 const supportedFormats = ['mp4', 'mov', 'ogv', 'webm'];
 const video = {
@@ -32,6 +33,7 @@ function loadVideo() {
         <source src="${video.url}" type="${video.file.type}" />
     </video>
   `;
+  fileNameDisplay.textContent = video.file.name;
 }
 
 function formatIsValid(file) {
