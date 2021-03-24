@@ -148,4 +148,4 @@ volumeInput.addEventListener('input', (event) => Howler.volume(event.target.valu
 
 const toTimeString = (seconds) => new Date(seconds * 1000).toISOString().substr(11, 12);
 const hasDecimal = (number) => number % 1 !== 0;
-const getFileType = (file) => file.type.split('/')[1] || null;
+const getFileType = (file) => (file.type ? file.type.split('/')[1] : null);
