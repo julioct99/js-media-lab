@@ -92,6 +92,15 @@ function updateAudioProgress() {
   currentTimeDisplay.textContent = toTimeString(currentTime);
 }
 
+function setAudioProgress(percentProgress, options) {
+  const duration = audioFile.sound.duration();
+  const moveTo = duration * (percentProgress / 100);
+  progressValue.style.transition = 'none';
+  progressValue.style.width = percentProgress + '%';
+  currentTimeDisplay.textContent = toTimeString(moveTo);
+  if (options?.seek) audioFile.sound?.seek(moveTo);
+}
+
 document.addEventListener('keypress', (event) => {
   const key = event.key.toLowerCase();
   if (key === ' ') pressPlayPauseButton();
@@ -132,18 +141,9 @@ progressInput.addEventListener('change', (event) => {
   setAudioProgress(percentProgress, { seek: true });
 });
 
-function setAudioProgress(percentProgress, options) {
-  const duration = audioFile.sound.duration();
-  const moveTo = duration * (percentProgress / 100);
-  progressValue.style.transition = 'none';
-  progressValue.style.width = percentProgress + '%';
-  currentTimeDisplay.textContent = toTimeString(moveTo);
-  if (options?.seek) audioFile.sound?.seek(moveTo);
-}
-
 playPauseBtn.addEventListener('click', pressPlayPauseButton);
 volumeInput.addEventListener('input', (event) => Howler.volume(event.target.value));
 
 const toTimeString = (seconds) => new Date(seconds * 1000).toISOString().substr(11, 12);
 const hasDecimal = (number) => number % 1 !== 0;
-const getFileType = (file) => file.type.split('/')[1];
+const getFileType = (file) => file.type?.split('/')[1];
