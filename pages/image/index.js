@@ -1,13 +1,13 @@
-const imgInput = document.querySelector('#imgUpload');
+const imgInput = document.querySelector('#img-upload');
 const imgPreviewContainer = document.querySelector('#img-preview-container');
 const accordionButtons = document.querySelectorAll('.btn-accordion');
-let imgPreview = document.querySelector('#imgPreview');
+let imgPreview = document.querySelector('#img-preview');
 
 /* COMPRESSION */
-const imgPreviewCompression = document.querySelector('#imgPreviewCompression');
+const imgPreviewCompression = document.querySelector('#img-preview-compression');
 const qualityInput = document.querySelector('#quality-input');
-const originalSizeDisplay = document.querySelector('#originalSizeDisplay');
-const compressedSizeDisplay = document.querySelector('#compressedSizeDisplay');
+const originalSizeDisplay = document.querySelector('#original-size-display');
+const compressedSizeDisplay = document.querySelector('#compressed-size-display');
 const compressionDisplay = document.querySelector('#compression-display');
 const acceptedCompressionFormats = ['image/jpeg', 'image/webp'];
 
@@ -23,7 +23,7 @@ const saturationInput = document.querySelector('#saturation-input');
 
 /* COLOR PALETTE */
 const colorBox = document.querySelector('.color-box');
-const mainColorDiv = document.querySelector('#mainColor');
+const mainColorDiv = document.querySelector('#main-color');
 const secondaryColorDivs = document.querySelectorAll('.color');
 const colorThief = new ColorThief();
 let colors = [];
@@ -37,13 +37,12 @@ const image = {
 imgInput.addEventListener('change', () => {
   image.file = imgInput.files[0];
   image.url = URL.createObjectURL(image.file);
-  if (isImage(image.file)) {
-    loadImage({ isReset: false });
-    resetFilters();
-    compressImage();
-  } else {
-    alert('The file must be an image');
-  }
+
+  if (!isImage(image.file)) return alert('The file must be an image');
+
+  loadImage({ isReset: false });
+  resetFilters();
+  compressImage();
 });
 
 function loadImage(options) {
@@ -68,9 +67,7 @@ function isImage(file) {
 }
 
 function setAccordionDisabled(disabled) {
-  accordionButtons.forEach(
-    (accordionButton) => (accordionButton.disabled = disabled)
-  );
+  accordionButtons.forEach((accordionButton) => (accordionButton.disabled = disabled));
 }
 
 //
@@ -82,9 +79,7 @@ function extractPalette() {
   colors = colorThief.getPalette(imgPreview, 6);
 
   setColor(mainColorDiv, mainColor);
-  secondaryColorDivs.forEach((colorDiv, index) => {
-    setColor(colorDiv, colors[index]);
-  });
+  secondaryColorDivs.forEach((colorDiv, index) => setColor(colorDiv, colors[index]));
 }
 
 function setColor(element, color) {

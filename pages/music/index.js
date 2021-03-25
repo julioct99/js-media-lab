@@ -1,8 +1,8 @@
-const synthSelect = document.querySelector('#synthSelect');
+const synthSelect = document.querySelector('#synth-select');
 const pianoKeys = document.querySelectorAll('.key');
-const octaveDownBtn = document.querySelector('#octaveDownBtn');
-const octaveUpBtn = document.querySelector('#octaveUpBtn');
-const octaveDisplay = document.querySelector('#octaveSpan');
+const octaveDownBtn = document.querySelector('#octave-down-btn');
+const octaveUpBtn = document.querySelector('#octave-up-btn');
+const octaveDisplay = document.querySelector('#octave-span');
 
 const noteMap = {
   z: 'c',
@@ -54,45 +54,43 @@ pianoKeys.forEach((key) => {
   key.addEventListener('click', (event) => playKey(event.target.id));
 });
 
-octaveDownBtn.addEventListener('click', () => changeOctave('down'));
+octaveDownBtn.addEventListener('click', octaveDown);
 
-octaveUpBtn.addEventListener('click', () => changeOctave('up'));
+octaveUpBtn.addEventListener('click', octaveUp);
 
 document.addEventListener('keydown', (event) => {
-  if (!event.repeat) {
-    const key = event.key.toLowerCase();
-    const keyCode = noteMap[key];
-    if (keyCode) {
-      const pianoKey = getElementByClassName(keyCode);
-      pianoKey.classList.add('active');
-      playKey(keyCode);
-    } else {
-      if (key === 'q') {
-        changeOctave('down');
-      } else if (key === 'w') {
-        changeOctave('up');
-      }
-    }
-  }
+  if (event.repeat) return;
+
+  const key = event.key.toLowerCase();
+  const keyCode = noteMap[key];
+  if (key === 'q') octaveDown();
+  if (key === 'w') octaveUp();
+  if (!keyCode) return;
+
+  const pianoKey = getElementByClassName(keyCode);
+  pianoKey.classList.add('active');
+  playKey(keyCode);
 });
 
 document.addEventListener('keyup', (event) => {
   const key = event.key.toLowerCase();
   const keyCode = noteMap[key];
-  if (keyCode) {
-    const pianoKey = getElementByClassName(keyCode);
-    pianoKey.classList.remove('active');
-  }
+
+  if (!keyCode) return;
+
+  const pianoKey = getElementByClassName(keyCode);
+  pianoKey.classList.remove('active');
 });
 
-function changeOctave(direction) {
-  if (direction === 'up' && octave < 10) {
-    octave++;
-  } else if (direction === 'down' && octave > 1) {
-    octave--;
-  }
-  octaveDisplay.textContent = `Octave (${octave})`;
+function octaveUp() {
+  if (octave < 10) octave++;
+  setOctaveDisplay(octave);
 }
 
-const getElementByClassName = (classname) =>
-  document.querySelector('.' + classname);
+function octaveDown() {
+  if (octave > 1) octave--;
+  setOctaveDisplay(octave);
+}
+
+const setOctaveDisplay = (octave) => (octaveDisplay.textContent = `Octave (${octave})`);
+const getElementByClassName = (classname) => document.querySelector('.' + classname);

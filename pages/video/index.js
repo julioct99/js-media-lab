@@ -11,14 +11,11 @@ const video = {
 videoInput.addEventListener('change', () => {
   video.file = videoInput.files[0];
   video.url = URL.createObjectURL(video.file);
-  if (formatIsValid(video)) {
-    console.log(video);
-    loadVideo();
-  } else {
-    alert(
-      'File format not supported. Supported formats are ' + supportedFormats
-    );
-  }
+
+  if (!formatIsValid(video))
+    return alert('File format not supported. Supported formats are ' + supportedFormats);
+
+  loadVideo();
 });
 
 function loadVideo() {

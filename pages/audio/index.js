@@ -50,7 +50,7 @@ function updatePlayButton() {
   playPauseBtn.innerHTML = `<span class="${className}"> ${iconName} </span>`;
 }
 
-function initHowler(format) {
+function initHowler() {
   audioFile.sound?.stop();
   audioFile.sound = new Howl({
     src: [audioFile.url],
