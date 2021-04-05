@@ -2,9 +2,8 @@
 
 ### Libraries:
 
-Video.js
-Tone.js
-ColorThief.js
-Compressor.js
-Caman.js
-
+- Video.js
+- Tone.js
+- ColorThief.js
+- Compressor.js
+- Caman.js
