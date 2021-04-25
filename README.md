@@ -7,3 +7,4 @@
 - ColorThief.js
 - Compressor.js
 - Caman.js
+- Howler.js
